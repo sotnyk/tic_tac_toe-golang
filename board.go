@@ -41,7 +41,7 @@ func NewBoard() Board {
 	return result
 }
 
-func (board Board) Display() {
+func (board *Board) Display() {
 	cells := board.cells
 	fmt.Println()
 	fmt.Println("\t" + cells[0].ToString() + " | " + cells[1].ToString() + " | " + cells[2].ToString())
@@ -109,11 +109,12 @@ func makeComputerMove(board *Board) int {
 
 	possibleMoves := make(weightedMoves, 0, BoardSize)
 	for _, m := range bestMoves[rand.Intn(len(bestMoves))] {
-		if cells[m] == EmptyValue {
+		if cells.IsLegalMove(m) {
 			possibleMoves = append(possibleMoves, weightedMove{m, calcFitnessCompMove(board, m)})
 		}
 	}
-	sort.Reverse(possibleMoves)
+	//sort.Reverse(possibleMoves)
+	sort.Sort(possibleMoves)
 
 	return possibleMoves[0].move
 }
@@ -127,7 +128,7 @@ func calcFitnessCompMove(board *Board, move int) float32 {
 	case board.computerWinnerState:
 		result = 1
 	case board.humanWinnerState:
-		result = -1
+		panic("Something wrong! This state should be unreachable")
 	case GameStateDraw:
 		result = 0
 	case GameStateInProgress:
@@ -137,8 +138,11 @@ func calcFitnessCompMove(board *Board, move int) float32 {
 				possibleMoves = append(possibleMoves, weightedMove{i, calcFitnessHumanMove(board, i)})
 			}
 		}
-		sort.Sort(possibleMoves)
+		//sort.Sort(possibleMoves)
+		sort.Reverse(possibleMoves)
 		result = possibleMoves[0].weight
+	default:
+		panic("Something wrong! This state should be unreachable")
 	}
 	cells[move] = EmptyValue
 	return result
@@ -151,7 +155,7 @@ func calcFitnessHumanMove(board *Board, move int) float32 {
 	cells[move] = board.humanCell
 	switch cells.CalcWinner() {
 	case board.computerWinnerState:
-		result = 1
+		panic("Something wrong! This state should be unreachable")
 	case board.humanWinnerState:
 		result = -1
 	case GameStateDraw:
@@ -163,8 +167,11 @@ func calcFitnessHumanMove(board *Board, move int) float32 {
 				possibleMoves = append(possibleMoves, weightedMove{i, calcFitnessCompMove(board, i)})
 			}
 		}
-		sort.Reverse(possibleMoves)
+		//sort.Reverse(possibleMoves)
+		sort.Sort(possibleMoves)
 		result = possibleMoves[0].weight
+	default:
+		panic("Something wrong! This state should be unreachable")
 	}
 	cells[move] = EmptyValue
 	return result

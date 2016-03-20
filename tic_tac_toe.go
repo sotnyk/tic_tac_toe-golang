@@ -7,10 +7,12 @@ import (
 )
 
 func main() {
+	TestWeightFor4_tst()
+	//TestWeightFor_tst()
 	displayInstructions()
 	for {
 		board := initBoard()
-		board.StartGame(askYesNo("Do you wannna play as "+XValue.ToString()+"? (y/n): "))
+		board.StartGame(askYesNo("Do you wannna play as " + XValue.ToString() + "? (y/n): "))
 		if !askYesNo("Do you wanna repeat? (y/n)") {
 			break
 		}
@@ -21,7 +23,6 @@ func main() {
 
 func initBoard() Board {
 	result := NewBoard()
-	result.Display()
 	return result
 }
 
@@ -71,3 +72,48 @@ func displayInstructions() {
 		7 | 8 | 9`)
 }
 
+func constructBoardForSecondMove_tst() Board {
+	b := NewBoard()
+	b.initGame(true)
+	b.cells[0] = XValue
+	return b
+}
+
+func TestWeightFor8_tst() {
+	b := constructBoardForSecondMove_tst()
+	var expected float32 = -1
+	actual := calcFitnessCompMove(&b, 8)
+	if (expected != actual) {
+		fmt.Errorf("Test failed, expected '%f', got '%f'", expected, actual)
+	}
+}
+
+func TestWeightFor4_tst() {
+	b := constructBoardForSecondMove_tst()
+	var expected float32 = 0
+	actual := calcFitnessCompMove(&b, 4)
+	if (expected != actual) {
+		fmt.Errorf("Test failed, expected '%f', got '%f'", expected, actual)
+	}
+}
+
+func TestWeightFor_tst() {
+	b := NewBoard()
+	b.initGame(true)
+	b.cells = Cells{
+		OValue, OValue, XValue,
+		XValue, XValue, EmptyValue,
+		OValue, XValue, EmptyValue,
+	}
+	var expected float32 = -1
+	actual := calcFitnessCompMove(&b, 8)
+	if (expected != actual) {
+		fmt.Errorf("Test failed, expected '%f', got '%f'", expected, actual)
+	}
+	expected = 0
+	actual = calcFitnessCompMove(&b, 5)
+	if (expected != actual) {
+		fmt.Errorf("Test failed, expected '%f', got '%f'", expected, actual)
+	}
+
+}

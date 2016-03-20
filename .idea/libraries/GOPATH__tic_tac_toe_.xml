@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="GOPATH &lt;tic_tac_toe&gt;">
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/../hello" />
       <root url="file://$PROJECT_DIR$/../stacker" />
       <root url="file://$PROJECT_DIR$/../github.com" />
       <root url="file://$PROJECT_DIR$/../statistics" />
@@ -8,6 +9,7 @@
     <JAVADOC />
     <SOURCES />
     <excluded>
+      <root url="file://$PROJECT_DIR$/../hello/.idea" />
       <root url="file://$PROJECT_DIR$" />
       <root url="file://$PROJECT_DIR$/../github.com/sotnyk/go-hugefind/.git" />
     </excluded>
