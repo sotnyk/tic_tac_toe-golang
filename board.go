@@ -114,7 +114,6 @@ func makeComputerMove(board *Board) int {
 		}
 	}
 	sort.Sort(sort.Reverse(possibleMoves))
-	//sort.Sort(possibleMoves)
 	move := possibleMoves[0].move
 	fmt.Println(move)
 	return move
@@ -140,7 +139,6 @@ func calcFitnessCompMove(board *Board, move int) float32 {
 			}
 		}
 		sort.Sort(possibleMoves)
-		//sort.Sort(sort.Reverse(possibleMoves))
 		result = possibleMoves[0].weight
 	default:
 		panic("Something wrong! This state should be unreachable")
@@ -169,7 +167,6 @@ func calcFitnessHumanMove(board *Board, move int) float32 {
 			}
 		}
 		sort.Sort(sort.Reverse(possibleMoves))
-		//sort.Sort(possibleMoves)
 		result = possibleMoves[0].weight
 	default:
 		panic("Something wrong! This state should be unreachable")

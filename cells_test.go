@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func TestWinnerX(t *testing.T){
+func TestWinnerX(t *testing.T) {
 	cells := Cells{
 		XValue, EmptyValue, EmptyValue,
 		EmptyValue, XValue, EmptyValue,
@@ -10,12 +10,12 @@ func TestWinnerX(t *testing.T){
 	}
 	expected := GameStateWinnerX
 	actual := cells.CalcWinner()
-	if actual!=expected{
+	if actual != expected {
 		t.Error("Test failed")
 	}
 }
 
-func TestWinnerO(t *testing.T){
+func TestWinnerO(t *testing.T) {
 	cells := Cells{
 		XValue, EmptyValue, EmptyValue,
 		EmptyValue, XValue, EmptyValue,
@@ -23,12 +23,12 @@ func TestWinnerO(t *testing.T){
 	}
 	expected := GameStateWinnerO
 	actual := cells.CalcWinner()
-	if actual!=expected{
+	if actual != expected {
 		t.Error("Test failed")
 	}
 }
 
-func TestDraw(t *testing.T){
+func TestDraw(t *testing.T) {
 	cells := Cells{
 		XValue, OValue, XValue,
 		XValue, XValue, OValue,
@@ -36,12 +36,12 @@ func TestDraw(t *testing.T){
 	}
 	expected := GameStateDraw
 	actual := cells.CalcWinner()
-	if actual!=expected{
+	if actual != expected {
 		t.Error("Test failed")
 	}
 }
 
-func TestGameInProgress(t *testing.T){
+func TestGameInProgress(t *testing.T) {
 	cells := Cells{
 		XValue, OValue, XValue,
 		EmptyValue, XValue, OValue,
@@ -49,7 +49,7 @@ func TestGameInProgress(t *testing.T){
 	}
 	expected := GameStateInProgress
 	actual := cells.CalcWinner()
-	if actual!=expected{
+	if actual != expected {
 		t.Error("Test failed")
 	}
 }
